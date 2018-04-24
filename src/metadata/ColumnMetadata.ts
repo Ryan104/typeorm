@@ -9,6 +9,7 @@ import {OrmUtils} from "../util/OrmUtils";
 import {ValueTransformer} from "../decorator/options/ValueTransformer";
 import {MongoDriver} from "../driver/mongodb/MongoDriver";
 import {PromiseUtils} from "../util/PromiseUtils";
+import { FindOperator } from "..";
 
 /**
  * This metadata contains all information about entity's column.
@@ -566,7 +567,7 @@ export class ColumnMetadata {
                 if (relatedEntity && relatedEntity instanceof Object && !(relatedEntity instanceof Function)) {
                     value = this.referencedColumn.getEntityValue(PromiseUtils.extractValue(relatedEntity));
 
-                } else if (entity[this.propertyName] && entity[this.propertyName] instanceof Object && !(entity[this.propertyName] instanceof Function)) {
+                } else if (entity[this.propertyName] && entity[this.propertyName] instanceof Object && !(entity[this.propertyName] instanceof Function) && !(entity[this.propertyName] instanceof FindOperator)) {
                     value = this.referencedColumn.getEntityValue(PromiseUtils.extractValue(entity[this.propertyName]));
 
                 } else {
